@@ -8,7 +8,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 
 @Configuration
 @EnableAuthorizationServer
@@ -18,7 +18,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 	private AuthenticationManager authenticationManager;
 
 	@Autowired
-	private TokenStore tokenStore;
+	private InMemoryTokenStore tokenStore;
 	
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
@@ -35,8 +35,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
          .scopes("read", "write", "trust")
          .secret("secret")
          .resourceIds("oauth2-server")
-         .accessTokenValiditySeconds(120).//Access token is only valid for 2 minutes.
-         refreshTokenValiditySeconds(600);//Refresh token is only valid for 10 minutes.
+         .accessTokenValiditySeconds(1200).//Access token is only valid for 2 minutes.
+         refreshTokenValiditySeconds(60000);//Refresh token is only valid for 10 minutes.
 	}
 	
 	@Override

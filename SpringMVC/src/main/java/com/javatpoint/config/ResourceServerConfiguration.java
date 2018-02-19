@@ -28,8 +28,12 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 		.antMatchers("/service/**").access("hasRole('ADMIN')");
 	}
 
+//	@Override
+//	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+//		resources.tokenStore(tokenStore()).resourceId(SERVER_RESOURCE_ID);
+//	}
 	@Override
-	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-		resources.tokenStore(tokenStore()).resourceId(SERVER_RESOURCE_ID);
-	}
+    public void configure(ResourceServerSecurityConfigurer resources) {
+        resources.resourceId(SERVER_RESOURCE_ID).stateless(false);
+    }
 }
